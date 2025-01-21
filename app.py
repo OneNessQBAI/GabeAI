@@ -16,16 +16,22 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Initialize OpenAI client with DeepSeek configuration
-if not os.getenv('DEEPSEEK_API_KEY'):
-    raise ValueError("DEEPSEEK_API_KEY environment variable is not set")
+api_key = os.getenv('DEEPSEEK_API_KEY')
+if not api_key:
+    st.error("DEEPSEEK_API_KEY environment variable is not set. Please set it in your .env file.")
+    st.stop()
 
-client = OpenAI(
-    api_key=os.getenv('DEEPSEEK_API_KEY'),
-    base_url="https://api.deepseek.com/v1",
-    default_headers={
-        "Content-Type": "application/json"
-    }
-)
+try:
+    client = OpenAI(
+        api_key=api_key,
+        base_url="https://api.deepseek.com/v1",
+        default_headers={
+            "Content-Type": "application/json"
+        }
+    )
+except Exception as e:
+    st.error(f"Error initializing DeepSeek API client: {str(e)}")
+    st.stop()
 
 # Initialize session state
 if 'messages' not in st.session_state:
