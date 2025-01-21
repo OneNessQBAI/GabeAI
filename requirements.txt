@@ -3,3 +3,4 @@ openai
 requests
 plotly
 beautifulsoup4
+python-dotenv

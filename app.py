@@ -10,10 +10,14 @@ import io
 from contextlib import redirect_stdout
 from openai import OpenAI
 import requests
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Initialize OpenAI client with DeepSeek configuration
 client = OpenAI(
-    api_key="sk-dabac5ecce2c487e9ac5dd3346aa68b9",
+    api_key=os.getenv('DEEPSEEK_API_KEY'),
     base_url="https://api.deepseek.com/v1"
 )
 
